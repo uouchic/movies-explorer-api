@@ -31,7 +31,7 @@ mongoose
 
 const app = express();
 
-// app.use(cors({ origin: 'http://v-che.nomoredomains.work' }));
+app.use(cors({ origin: 'http://vche-movie.nomoreparties.co' }));
 
 app.use(bodyParser.json());
 
