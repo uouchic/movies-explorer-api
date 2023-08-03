@@ -9,6 +9,7 @@ const userRouters = require('./routes/users');
 const movieRouters = require('./routes/movies');
 
 const { auth } = require('./middlewares/auth');
+const errorHandler = require('./middlewares/error-handler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const {
@@ -18,10 +19,10 @@ const {
 
 const NotFoundError = require('./errors/not-found-error');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, DB_ADDRESS = 'mongodb://127.0.0.1:27017/bitfilmsdb' } = process.env;
 
 mongoose
-  .connect('mongodb://127.0.0.1:27017/bitfilmsdb', {
+  .connect(DB_ADDRESS, {
     useNewUrlParser: true,
   })
   .then(() => {
@@ -79,14 +80,7 @@ app.use(errorLogger);
 
 app.use(errors());
 
-app.use((err, req, res, next) => {
-  if (err.statusCode) {
-    res.status(err.statusCode).send({ message: err.message });
-  } else {
-    res.status(500).send({ message: 'На сервере произошла ошибка' });
-  }
-  next();
-});
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Сервер запущен на порту ${PORT}`);

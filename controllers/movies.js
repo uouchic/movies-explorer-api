@@ -73,7 +73,9 @@ const deleteMovie = (req, res, next) => {
 
 const getMovies = (req, res, next) => {
   Movie.find({})
-    .then((movies) => res.status(200).send(movies))
+    .then((movies) => res.status(200)
+      // eslint-disable-next-line eqeqeq
+      .send(movies.filter((movie) => movie.owner == req.user.id)))
     .catch(next);
 };
 
