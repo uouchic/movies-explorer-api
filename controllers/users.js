@@ -122,10 +122,14 @@ const updateUser = (req, res, next) => {
     });
 };
 
+const delCookieToken = (req, res) => {
+  res.clearCookie('jwt', { secure: true, httpOnly: true });
+};
+
 module.exports = {
   getCurrentUser,
   updateUser,
   createUser,
   login,
-
+  delCookieToken,
 };

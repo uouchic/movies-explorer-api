@@ -15,6 +15,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const {
   createUser,
   login,
+  delCookieToken,
 } = require('./controllers/users');
 
 const NotFoundError = require('./errors/not-found-error');
@@ -71,6 +72,11 @@ app.use(auth);
 
 app.use('/api', userRouters);
 app.use('/api', movieRouters);
+
+app.post(
+  '/api/signout',
+  delCookieToken,
+);
 
 app.use('*', (req, res, next) => {
   next(new NotFoundError('Маршрут не найден'));
