@@ -20,7 +20,7 @@ const {
 
 const NotFoundError = require('./errors/not-found-error');
 
-const { PORT = 3000, DB_ADDRESS = 'mongodb://127.0.0.1:27017/bitfilmsdb' } = process.env;
+const { PORT = 4000, DB_ADDRESS = 'mongodb://127.0.0.1:27017/bitfilmsdb' } = process.env;
 
 mongoose
   .connect(DB_ADDRESS, {
@@ -33,7 +33,7 @@ mongoose
 
 const app = express();
 
-app.use(cors({ origin: 'http://vche-movie.nomoreparties.co' }));
+app.use(cors({ origin: '*' }));
 
 app.use(bodyParser.json());
 
