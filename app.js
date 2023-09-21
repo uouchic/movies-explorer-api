@@ -33,7 +33,7 @@ mongoose
 
 const app = express();
 
-app.use(cors({ origin: 'http://vche-movie.nomoreparties.co' }));
+app.use(cors({ origin: '*' }));
 
 app.use(bodyParser.json());
 
